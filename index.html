@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Form Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background: #f0f2f5;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    .error {
+      color: red;
+      font-size: 0.9rem;
+    }
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+      padding: 10px;
+      margin-top: 15px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<h2 style="text-align: center;">📝 Sign Up Form</h2>
+
+<form id="signupForm">
+  <input type="text" id="name" placeholder="Full Name" />
+  <div class="error" id="nameError"></div>
+  
+  <input type="email" id="email" placeholder="Email Address" />
+  <div class="error" id="emailError"></div>
+
+  <button type="submit">Submit</button>
+  <div id="feedback"></div>
+</form>
+
+<script>
+  const form = document.getElementById("signupForm");
+  const nameInput = document.getElementById("name");
+  const emailInput = document.getElementById("email");
+  const nameError = document.getElementById("nameError");
+  const emailError = document.getElementById("emailError");
+  const feedback = document.getElementById("feedback");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    let isValid = true;
+    nameError.textContent = "";
+    emailError.textContent = "";
+    feedback.innerHTML = "";
+
+    // Validate name
+    if (nameInput.value.trim() === "") {
+      nameError.textContent = "Name is required.";
+      isValid = false;
+    }
+
+    // Validate email
+    if (!emailInput.value.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      emailError.textContent = "Enter a valid email.";
+      isValid = false;
+    }
+
+    if (isValid) {
+      feedback.innerHTML = `<div class="success">🎉 Thank you, ${nameInput.value}! Your form has been submitted.</div>`;
+      form.reset();
+    }
+  });
+
+  // Extra interaction: show alert when focusing on name
+  nameInput.addEventListener("focus", () => {
+    console.log("Name input focused!");
+  });
+</script>
+
+</body>
+</html>
